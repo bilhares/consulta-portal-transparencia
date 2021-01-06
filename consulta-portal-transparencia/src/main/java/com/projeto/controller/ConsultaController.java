@@ -1,33 +1,29 @@
 package com.projeto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.projeto.model.User;
+import com.projeto.model.Parametros;
+import com.projeto.service.ConsultaPortalTransparenciaService;
 
 @Controller
 public class ConsultaController {
+	
+	@Autowired
+	ConsultaPortalTransparenciaService consultaService;
 
 	@GetMapping({ "/", "/home" })
-	public String helloWorld(Model model) {
-		List<User> lista = new ArrayList<User>();
-
-		lista.add(new User(1L, "Felipe", "felipe.bilhares@hotmail.com"));
-		lista.add(new User(2L, "Rodrigo", "rsantos.teste@gmail.com"));
-		lista.add(new User(3L, "Flavio", "flv@yahoo.com"));
-		model.addAttribute("users", lista);
-
+	public String helloWorld() {
 		return "home";
 	}
 
 	@PostMapping("/consultar")
-	public String addUser(Model model) {
-		System.out.println("postzin");
+	public String addUser(Parametros parametros, BindingResult result, Model model) {
+		consultaService.consultarPortal(parametros);
 		return "home";
 	}
 

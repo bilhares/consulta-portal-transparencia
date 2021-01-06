@@ -7,18 +7,38 @@
 
 	<section layout:fragment="corpo">
 
-		<div class="row">
+		<div class="row center formulario">
 			<form class="col s12" action="#" th:action="@{/consultar}"
-				method="post">
+				th:object="${parametros}" method="post">
+
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s6 s6 offset-m3">
+						<input placeholder="MM/AAAA" id="first_name" type="text"
+							th:field="*{mesExtratoInicio}" class="validate mesExtrato">
+						<label for="first_name">Mês Extrato Início</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s6 s6 offset-m3">
+						<input placeholder="MM/AAAA" id="last_name" type="text"
+							th:field="*{mesExtratoFim}" class="validate mesExtrato">
+						<label for="last_name">Mês Extrato Fim</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s6 offset-m3" th:required="required">
 						<select>
-							<option value="" disabled selected>Selecione o formato de impressão</option>
-							<option value="1">CSV</option>
+							<option value="" disabled>Selecione o formato de
+								impressão</option>
+							<option value="1" selected>CSV</option>
 						</select> <label>Seleção de impressão</label>
 					</div>
 				</div>
-				<button class="btn waves-effect waves-light" type="submit" name="action">Consultar
+
+				<button class="btn waves-effect waves-light" type="submit"
+					name="action">Consultar
 			</form>
 		</div>
 
