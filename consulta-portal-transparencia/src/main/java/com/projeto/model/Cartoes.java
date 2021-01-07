@@ -1,6 +1,6 @@
 package com.projeto.model;
 
-public class ConsultaDto {
+public class Cartoes {
 
 	private String dataTransacao;
 	private String valorTransacao;

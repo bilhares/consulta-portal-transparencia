@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.projeto.model.ConsultaDto;
+import com.projeto.model.Cartoes;
 import com.projeto.model.Parametros;
 
 @Service
@@ -30,7 +30,7 @@ public class ApiUtils {
 	@Autowired
 	RestTemplate restTemplate;
 
-	public List<ConsultaDto> buscarDadosApi(Parametros parametros) {
+	public List<Cartoes> buscarDadosApi(Parametros parametros) {
 
 		HttpHeaders headers = new HttpHeaders();
 		configurarHeaders(headers);
@@ -39,12 +39,11 @@ public class ApiUtils {
 
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-		ResponseEntity<List<ConsultaDto>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
-				entity, new ParameterizedTypeReference<List<ConsultaDto>>() {
-				});
+		ResponseEntity<List<Cartoes>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
+				entity, new ParameterizedTypeReference<List<Cartoes>>() {});
 
 		if (response.getStatusCodeValue() != 200)
-			return new ArrayList<ConsultaDto>();
+			return new ArrayList<Cartoes>();
 
 		return response.getBody();
 	}

@@ -12,7 +12,7 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import com.projeto.model.Cnae;
-import com.projeto.model.ConsultaDto;
+import com.projeto.model.Cartoes;
 import com.projeto.model.CsvDto;
 import com.projeto.model.OrgaoMaximo;
 import com.projeto.model.Parametros;
@@ -25,18 +25,15 @@ public class ConsultaPortalTransparenciaService {
 	ApiUtils apiUtils;
 
 	public void consultarPortal(Parametros parametros, HttpServletResponse response) {
-		List<ConsultaDto> dadosDaConsulta = apiUtils.buscarDadosApi(parametros);
-
-		if (dadosDaConsulta.isEmpty())
-			return;
-
+		List<Cartoes> dadosDaConsulta = apiUtils.buscarDadosApi(parametros);
 		List<CsvDto> listaCsvDto = obterCsvDto(dadosDaConsulta);
 		gerarArquivoCSV(listaCsvDto, response);
 	}
 
-	private List<CsvDto> obterCsvDto(List<ConsultaDto> dadosDaConsulta) {
+	private List<CsvDto> obterCsvDto(List<Cartoes> dadosDaConsulta) {
 		List<CsvDto> listaRetorno = new ArrayList<CsvDto>();
-		for (ConsultaDto consultaDto : dadosDaConsulta) {
+
+		dadosDaConsulta.forEach(consultaDto -> {
 
 			Cnae cnae = consultaDto.getEstabelecimento().getCnae();
 			OrgaoMaximo orgaoMaximo = consultaDto.getUnidadeGestora().getOrgaoVinculado().getOrgaoMaximo();
@@ -46,7 +43,7 @@ public class ConsultaPortalTransparenciaService {
 					consultaDto.getEstabelecimento().getNumeroInscricaoSocial(), cnae.getClasse(), cnae.getDivisao(),
 					cnae.getGrupo(), cnae.getGrupo(), orgaoMaximo.getCodigo(), orgaoMaximo.getNome(),
 					orgaoMaximo.getSigla()));
-		}
+		});
 
 		return listaRetorno;
 	}
@@ -63,7 +60,6 @@ public class ConsultaPortalTransparenciaService {
 			for (CsvDto dto : listaCsvDto) {
 				csvWriter.write(dto, nameMapping);
 			}
-
 			csvWriter.close();
 
 		} catch (Exception e) {
