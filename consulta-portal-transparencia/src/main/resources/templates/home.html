@@ -14,7 +14,7 @@
 				<div class="row">
 					<div class="input-field col s6 s6 offset-m3">
 						<input placeholder="MM/AAAA" id="first_name" type="text"
-							th:field="*{mesExtratoInicio}" class="validate mesExtrato">
+							th:field="*{mesExtratoInicio}" class="validate mesExtrato" th:required="required">
 						<label for="first_name">Mês Extrato Início</label>
 					</div>
 				</div>
@@ -22,7 +22,7 @@
 				<div class="row">
 					<div class="input-field col s6 s6 offset-m3">
 						<input placeholder="MM/AAAA" id="last_name" type="text"
-							th:field="*{mesExtratoFim}" class="validate mesExtrato">
+							th:field="*{mesExtratoFim}" class="validate mesExtrato" th:required="required">
 						<label for="last_name">Mês Extrato Fim</label>
 					</div>
 				</div>
